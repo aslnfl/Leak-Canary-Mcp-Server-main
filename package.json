@@ -1,6 +1,6 @@
 {
-  "name": "leakcanary-mcp",
-  "version": "1.0.0",
+  "name": "leakcanary-mcp-fix",
+  "version": "1.0.1",
   "description": "LeakCanary MCP Server wrapper for VS Code, Android Studio, and Cursor",
   "bin": {
     "leakcanary-mcp": "bin/index.js"
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ravisharma46/Leak-Canary-Mcp-Server.git"
+    "url": "git+https://github.com/aslnfl/Leak-Canary-Mcp-Server.git"
   },
   "keywords": [
     "mcp",
@@ -23,7 +23,7 @@
   "author": "Ravi Kumar",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ravisharma46/Leak-Canary-Mcp-Server/issues"
+    "url": "https://github.com/aslnfl/Leak-Canary-Mcp-Server/issues"
   },
-  "homepage": "https://github.com/ravisharma46/Leak-Canary-Mcp-Server#readme"
+  "homepage": "https://github.com/aslnfl/Leak-Canary-Mcp-Server#readme"
 }
