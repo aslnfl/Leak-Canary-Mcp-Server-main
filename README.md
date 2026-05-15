@@ -25,7 +25,7 @@ Add this directly to your **`~/.cursor/mcp.json`**:
   "mcpServers": {
     "leakcanary": {
       "command": "npx",
-      "args": ["-y", "leakcanary-mcp"]
+      "args": ["-y", "leakcanary-mcp-fix"]
     }
   }
 }
@@ -47,7 +47,7 @@ Make sure you have [GitHub Copilot](https://marketplace.visualstudio.com/items?i
     "leakcanary": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "leakcanary-mcp"]
+      "args": ["-y", "leakcanary-mcp-fix"]
     }
   }
 }
@@ -62,7 +62,7 @@ Make sure you have [GitHub Copilot](https://marketplace.visualstudio.com/items?i
       "leakcanary": {
         "type": "stdio",
         "command": "npx",
-        "args": ["-y", "leakcanary-mcp"]
+        "args": ["-y", "leakcanary-mcp-fix"]
       }
     }
   }
@@ -85,7 +85,7 @@ Android Studio supports MCP servers through the **Gemini** plugin (Android Studi
   "mcpServers": {
     "leakcanary": {
       "command": "npx",
-      "args": ["-y", "leakcanary-mcp"]
+      "args": ["-y", "leakcanary-mcp-fix"]
     }
   }
 }
@@ -98,7 +98,7 @@ Alternatively, add a `mcp.json` file in the `.idea` folder of your project:
   "mcpServers": {
     "leakcanary": {
       "command": "npx",
-      "args": ["-y", "leakcanary-mcp"]
+      "args": ["-y", "leakcanary-mcp-fix"]
     }
   }
 }
