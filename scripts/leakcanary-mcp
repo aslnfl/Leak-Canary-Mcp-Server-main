@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+set -e
+
+# ── Configuration ────────────────────────────────────────────────────────────
+REPO="ravisharma46/Leak-Canary-Mcp-Server"
+INSTALL_DIR="$HOME/.leakcanary-mcp"
+JAR="$INSTALL_DIR/server.jar"
+VERSION_FILE="$INSTALL_DIR/version"
+ASSET_NAME="leakcanary-mcp-server-all.jar"
+
+# ── Colors ───────────────────────────────────────────────────────────────────
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+error() { echo -e "${RED}ERROR: $1${NC}" >&2; }
+warn()  { echo -e "${YELLOW}WARN:  $1${NC}" >&2; }
+info()  { echo -e "${GREEN}$1${NC}" >&2; }
+
+# ── Pre-flight checks ───────────────────────────────────────────────────────
+if ! command -v gh &>/dev/null; then
+    error "GitHub CLI not found. Install with: brew install gh"
+    exit 1
+fi
+
+if ! command -v java &>/dev/null; then
+    error "Java not found. Install Java 17+ to continue."
+    exit 1
+fi
+
+if ! command -v adb &>/dev/null; then
+    warn "adb not found. Leak detection requires a connected Android device with adb."
+fi
+
+# ── Install directory ────────────────────────────────────────────────────────
+mkdir -p "$INSTALL_DIR"
+
+# ── Version check & auto-update ─────────────────────────────────────────────
+LATEST_VERSION=""
+LATEST_VERSION=$(gh release view --repo "$REPO" --json tagName -q .tagName 2>/dev/null) || true
+
+if [ -z "$LATEST_VERSION" ]; then
+    if [ -f "$JAR" ]; then
+        warn "Could not fetch latest version. Using cached JAR."
+    else
+        error "Could not fetch latest release from $REPO. Check your network and gh auth."
+        exit 1
+    fi
+else
+    CURRENT_VERSION=""
+    if [ -f "$VERSION_FILE" ]; then
+        CURRENT_VERSION=$(cat "$VERSION_FILE")
+    fi
+
+    if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+        if [ -z "$CURRENT_VERSION" ]; then
+            info "First run — downloading LeakCanary MCP Server $LATEST_VERSION ..."
+        else
+            info "Updating from $CURRENT_VERSION to $LATEST_VERSION ..."
+        fi
+
+        TEMP_DIR=$(mktemp -d)
+        trap 'rm -rf "$TEMP_DIR"' EXIT
+
+        gh release download "$LATEST_VERSION" \
+            --repo "$REPO" \
+            --pattern "$ASSET_NAME" \
+            --dir "$TEMP_DIR" \
+            --clobber
+
+        if [ ! -f "$TEMP_DIR/$ASSET_NAME" ]; then
+            error "Failed to download $ASSET_NAME from release $LATEST_VERSION."
+            exit 1
+        fi
+
+        mv "$TEMP_DIR/$ASSET_NAME" "$JAR"
+        echo "$LATEST_VERSION" > "$VERSION_FILE"
+        info "Downloaded $LATEST_VERSION successfully."
+    fi
+fi
+
+# ── Verify JAR exists ────────────────────────────────────────────────────────
+if [ ! -f "$JAR" ]; then
+    error "Server JAR not found at $JAR. Re-run to download."
+    exit 1
+fi
+
+# ── Launch ───────────────────────────────────────────────────────────────────
+info "LeakCanary MCP ready"
+exec java -jar "$JAR"
