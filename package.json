@@ -1,6 +1,6 @@
 {
   "name": "leakcanary-mcp-fix",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "LeakCanary MCP Server wrapper for VS Code, Android Studio, and Cursor",
   "bin": {
     "leakcanary-mcp": "bin/index.js"
