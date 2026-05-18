@@ -237,3 +237,12 @@ This project is for internal use at Todo App.
 Developed by **Ravi Kumar**
 
 🙏 If you like LeakCanary MCP Server you can show support by starring ⭐ this repository.
+
+
+
+java -jar build/libs/leakcanary-mcp-server-all.jar
+
+"leakcanary": {
+"command": "java",
+"args": ["-jar", "D:/android/mcp/leakcanary/Leak-Canary-Mcp-Server-main/build/libs/leakcanary-mcp-server-all.jar"]
+}
