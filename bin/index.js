@@ -5,7 +5,7 @@ const os = require('os');
 const { spawn, execSync } = require('child_process');
 const https = require('https');
 
-const REPO = "ravisharma46/Leak-Canary-Mcp-Server";
+const REPO = "aslnfl/Leak-Canary-Mcp-Server";
 const ASSET_NAME = "leakcanary-mcp-server-all.jar";
 const INSTALL_DIR = path.join(os.homedir(), '.leakcanary-mcp');
 const JAR_PATH = path.join(INSTALL_DIR, 'server.jar');
